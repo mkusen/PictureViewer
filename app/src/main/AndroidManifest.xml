@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.pictureviewer.pictureviewer" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".SplashStart">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".instagram.ViewerInstagram"
+            android:label="@string/instagramPictureViewer"></activity>
+        <activity android:name=".flickr.ViewerFlickr"
+            android:label="@string/flickrPictureViewer"></activity>
+    </application>
+
+</manifest>
