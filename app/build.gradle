@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 10
     buildToolsVersion "22.0.1"
 
     defaultConfig {
         applicationId "com.pictureviewer.pictureviewer"
-        minSdkVersion 19
+        minSdkVersion 10
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
