@@ -7,8 +7,14 @@ import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ListView;
 
+import com.pictureviewer.pictureviewer.instagram.Adapter;
+import com.pictureviewer.pictureviewer.instagram.Items;
 import com.pictureviewer.pictureviewer.instagram.ViewerInstagram;
+
+import java.io.Reader;
+import java.util.ArrayList;
 
 
 public class SplashStart extends Activity implements Animation.AnimationListener {
@@ -16,6 +22,8 @@ public class SplashStart extends Activity implements Animation.AnimationListener
     private static int SPLASH_TIME_OUT = 3000;
     ImageView imgLogo;
     Animation animRotate;
+    ListView list;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +31,8 @@ public class SplashStart extends Activity implements Animation.AnimationListener
         setContentView(R.layout.activity_splash_start);
         Splash();
         AnimationSplashScreen();
+
+
     }
 
     //pokreće splash screen dok traje učitavanje podataka
