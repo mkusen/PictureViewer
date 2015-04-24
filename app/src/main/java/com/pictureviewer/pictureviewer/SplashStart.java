@@ -2,52 +2,59 @@ package com.pictureviewer.pictureviewer;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.ListView;
 
-import com.pictureviewer.pictureviewer.instagram.Adapter;
-import com.pictureviewer.pictureviewer.instagram.Items;
-import com.pictureviewer.pictureviewer.instagram.ViewerInstagram;
-
-import java.io.Reader;
-import java.util.ArrayList;
+import com.pictureviewer.pictureviewer.instagram.Http;
+import com.pictureviewer.pictureviewer.instagram.Viewer;
 
 
 public class SplashStart extends Activity implements Animation.AnimationListener {
 
-    private static int SPLASH_TIME_OUT = 3000;
+    private static int SPLASH_TIME_OUT = 5000;
     ImageView imgLogo;
     Animation animRotate;
-    ListView list;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_start);
-        Splash();
+        Finish();
         AnimationSplashScreen();
-
-
+        Splash();
     }
 
-    //pokreće splash screen dok traje učitavanje podataka
+    //get JSON and set condition for Splash
+    private boolean Finish() {
+        String data = Http.readInstagram();
+        if (data == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //run Splash until data is collected
     private void Splash() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(SplashStart.this, ViewerInstagram.class);
-                startActivity(i);
-                finish();
+                if (Finish() != true) {
+                    return;
+                } else {
+                    Intent i = new Intent(SplashStart.this, Viewer.class);
+                    startActivity(i);
+                    finish();
+                }
             }
         }, SPLASH_TIME_OUT);
     }
 
-    //pokreće animaciju
+    //run animation
     private void AnimationSplashScreen() {
         imgLogo = (ImageView) findViewById(R.id.imgLogo);
         animRotate = AnimationUtils.loadAnimation(getApplicationContext(),

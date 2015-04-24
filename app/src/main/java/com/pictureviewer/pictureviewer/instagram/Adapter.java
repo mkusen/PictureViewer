@@ -59,7 +59,7 @@ public class Adapter extends BaseAdapter {
         TextView txtFullName = (TextView) view.findViewById(R.id.txtFullName);
         txtFullName.setText(items1.full_name);
 
-        ImageView image = (ImageView) view.findViewById(R.id.imgSlika);
+        ImageView image = (ImageView) view.findViewById(R.id.imgThumbnail);
         ImageLoader.getInstance().displayImage(items1.image, image);
 
         return view;

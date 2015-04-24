@@ -17,11 +17,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".instagram.ViewerInstagram"
+            android:name=".instagram.Viewer"
             android:label="@string/instagramPictureViewer"></activity>
         <activity
             android:name=".flickr.ViewerFlickr"
             android:label="@string/flickrPictureViewer"></activity>
+        <activity
+            android:name=".instagram.ItemMore"
+            android:label="@string/itemMore"></activity>
     </application>
 
 </manifest>

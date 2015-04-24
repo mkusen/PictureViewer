@@ -41,14 +41,13 @@ public class Http {
                     builder.toString().substring(0, builder.toString().length() - 1);
                 }
             } else {
-                Log.e(ViewerInstagram.class.toString(), "Failed to download file");
+                Log.e(Viewer.class.toString(), "Failed to download file");
             }
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("builder " + builder.toString());
         return builder.toString();
 
     }

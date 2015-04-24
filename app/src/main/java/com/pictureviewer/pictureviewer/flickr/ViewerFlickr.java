@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pictureviewer.pictureviewer.R;
-import com.pictureviewer.pictureviewer.instagram.ViewerInstagram;
+import com.pictureviewer.pictureviewer.instagram.Viewer;
 
 /**
  * Created by Mario on 18.4.2015..
@@ -26,7 +26,7 @@ public class ViewerFlickr extends Activity {
     }
 
     //postavlja tekst na polje
-    private void FlickrNotice(){
+    private void FlickrNotice() {
         TextView flickrNotice = (TextView) findViewById(R.id.txtFlickrNotice);
         flickrNotice.setEnabled(true);
         flickrNotice.setText("Trenutno nedostupno \nDostupno s narednom nadogradnjom");
@@ -40,9 +40,9 @@ public class ViewerFlickr extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.instagram:
-                i = new Intent(this, ViewerInstagram.class);
+                i = new Intent(this, Viewer.class);
                 startActivity(i);
                 break;
             case R.id.flickr:
