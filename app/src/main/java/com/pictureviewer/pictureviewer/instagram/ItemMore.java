@@ -43,11 +43,9 @@ public class ItemMore extends Activity {
         String full_name = i.getStringExtra(FULL_NAME);
         String text = String.valueOf(i.getStringExtra(TEXT));
 
-
+        ImageLoader.getInstance().displayImage(image, imgLowResPic);
         txtFullName.setText(full_name);
-        System.out.println("full_name " + txtFullName);
         txtText.setText(text);
-        System.out.println("text " + txtText);
 
     }
 

@@ -2,9 +2,8 @@ package com.pictureviewer.pictureviewer;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Handler;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -13,7 +12,11 @@ import com.pictureviewer.pictureviewer.instagram.Http;
 import com.pictureviewer.pictureviewer.instagram.Viewer;
 
 
+/**
+ * Created by Mario on 25.4.2015..
+ */
 public class SplashStart extends Activity implements Animation.AnimationListener {
+
 
     private static int SPLASH_TIME_OUT = 5000;
     ImageView imgLogo;
