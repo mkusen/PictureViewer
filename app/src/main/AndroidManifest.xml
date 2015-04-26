@@ -7,24 +7,20 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="@string/instagramPictureViewer">>
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashStart">
+        <activity android:name=".instagram.Viewer">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".instagram.Viewer"
-            android:label="@string/instagramPictureViewer"></activity>
+
         <activity
             android:name=".flickr.ViewerFlickr"
             android:label="@string/flickrPictureViewer"></activity>
-        <activity
-            android:name=".instagram.ItemMore"
-            android:label="@string/itemMore"></activity>
+
     </application>
 
 </manifest>

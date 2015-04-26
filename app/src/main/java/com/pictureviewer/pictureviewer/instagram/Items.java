@@ -1,8 +1,6 @@
 package com.pictureviewer.pictureviewer.instagram;
 
-/**
- * Created by Mario on 23.4.2015..
- */
+//modell class
 public class Items {
 
     public String image;

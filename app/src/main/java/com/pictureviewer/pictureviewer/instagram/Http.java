@@ -15,9 +15,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-/**
- * Created by Mario on 19.4.2015..
- */
 public class Http {
 
     private static String response = "https://api.instagram.com/v1/media/popular?client_id=a957c5b858784410a87de3a90c95484b";

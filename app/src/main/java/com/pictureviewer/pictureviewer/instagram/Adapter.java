@@ -13,9 +13,7 @@ import com.pictureviewer.pictureviewer.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by Mario on 23.4.2015..
- */
+//
 public class Adapter extends BaseAdapter {
 
     Context context;

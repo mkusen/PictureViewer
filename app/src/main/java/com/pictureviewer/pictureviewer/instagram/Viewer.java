@@ -2,23 +2,13 @@ package com.pictureviewer.pictureviewer.instagram;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -32,9 +22,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * Created by Mario on 18.4.2015..
- */
 public class Viewer extends Activity {
 
     @Override
@@ -43,7 +30,7 @@ public class Viewer extends Activity {
         setContentView(R.layout.activity_instagram);
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
         ImageLoader.getInstance().init(config);
-        Reader();
+        new Reader().execute();
     }
 
     //String declare
@@ -65,105 +52,107 @@ public class Viewer extends Activity {
     //listView declare
     ListView listView;
 
-    private void Reader() {
+    // download dialog
+    ProgressDialog download;
 
-        StrictMode.ThreadPolicy policy = new StrictMode.
-                ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        final String input = Http.readInstagram();
+    private class Reader extends AsyncTask<Void, Void, Void> {
 
-        try {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            download = new ProgressDialog(Viewer.this);
+            download.setMessage("Downloading...");
+            download.setCancelable(false);
+            download.show();
+        }
 
-            //looping through Array
-            JSONArray json = new JSONArray(input);
-            for (int j = 0; j < json.length(); j++) {
-                JSONObject jsonObj = json.getJSONObject(j);
-                if (json != null) {
-                    try {
+        @Override
+        protected Void doInBackground(Void... arg0) {
 
-                        // Getting JSON Array node
-                        data = jsonObj.getJSONArray(DATA);
-                        // looping through All Objects
-                        for (int i = 0; i < data.length(); i++) {
-                            JSONObject a = data.getJSONObject(i);
+            StrictMode.ThreadPolicy policy = new StrictMode.
+                    ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            final String input = Http.readInstagram();
 
-                            //instance Items class
-                            final Items items = new Items();
+            try {
 
-                            //get images
-                            try {
-                                items.image = a.getJSONObject(IMAGES).getJSONObject(LOW_RESOLUTION).getString(URL);
-                            } catch (Exception e) {
+                //looping through Array
+                JSONArray json = new JSONArray(input);
+                for (int j = 0; j < json.length(); j++) {
+                    JSONObject jsonObj = json.getJSONObject(j);
+                    if (json != null) {
+                        try {
+
+                            // Getting JSON Array node
+                            data = jsonObj.getJSONArray(DATA);
+                            // looping through All Objects
+                            for (int i = 0; i < data.length(); i++) {
+                                JSONObject a = data.getJSONObject(i);
+
+                                //instance Items class
+                                final Items items = new Items();
+
+                                //get images
+                                try {
+                                    items.image = a.getJSONObject(IMAGES).getJSONObject(LOW_RESOLUTION).getString(URL);
+                                } catch (Exception e) {
+
+                                }
 
                                 //get text
-                            }
-                            try {
-                                items.text = a.getJSONObject(CAPTION).getString(TEXT);
-                            } catch (Exception e) {
+                                try {
+                                    items.text = a.getJSONObject(CAPTION).getString(TEXT);
+                                } catch (Exception e) {
 
+                                }
                                 //get full name
-                            }
-                            try {
-                                items.full_name = a.getJSONObject(CAPTION).getJSONObject(FROM).getString(FULL_NAME);
-                            } catch (Exception e) {
-
-                            }
-
-                            //add data to list
-                            list.add(items);
-
-                            listView = (ListView) findViewById(R.id.listView);
-
-                            //show list in listView
-                            Viewer.this.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Adapter adapter = new Adapter(getApplicationContext(), list);
-                                    listView.setAdapter(adapter);
-                                }
-                            });
-
-
-                            //set Listener on Item in list
-                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                                    //collecting data from selected Item
-                                    String image = ((ImageView) view.findViewById(R.id.imgThumbnail)).getDrawable().toString();
-                                    System.out.println("image " + image);
-                                    String full_name = ((TextView) view.findViewById(R.id.txtFullName))
-                                            .getText().toString();
-                                    String text = ((TextView) view.findViewById(R.id.txtText))
-                                            .getText().toString();
-
-                                    Intent i = new Intent(getApplicationContext(),
-                                            ItemMore.class);
-                                    i.putExtra(LOW_RESOLUTION, image);
-                                    i.putExtra(FULL_NAME, full_name);
-                                    i.putExtra(TEXT, text);
-                                    startActivity(i);
+                                try {
+                                    items.full_name = a.getJSONObject(CAPTION).getJSONObject(FROM).getString(FULL_NAME);
+                                } catch (Exception e) {
 
                                 }
-                            });
+
+                                //add data to list
+                                list.add(items);
+
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        }
-
-                } else {
+                    } else {
 
                     }
 
                 }
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+            return null;
+        }
 
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            // close download dialog
+            if (download.isShowing())
+                download.dismiss();
+
+            listView = (ListView) findViewById(R.id.listView);
+
+            //show list in listView
+            Viewer.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Adapter adapter = new Adapter(getApplicationContext(), list);
+                    listView.setAdapter(adapter);
+                }
+            });
+
+        }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -180,9 +169,6 @@ public class Viewer extends Activity {
             case R.id.flickr:
                 Intent i = new Intent(this, ViewerFlickr.class);
                 startActivity(i);
-                break;
-            case R.id.refresh:
-                Reader();
                 break;
         }
         return super.onOptionsItemSelected(item);
