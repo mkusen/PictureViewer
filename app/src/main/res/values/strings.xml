@@ -3,8 +3,6 @@
     <string name="app_name">Picture Viewer</string>
     <string name="flickr">Flickr</string>
     <string name="instagram">Instagram</string>
-    <string name="instagramPictureViewer">Instagram Pictures Viewer</string>
-    <string name="flickrPictureViewer">Filckr Pictures Viewer</string>
     <string name="itemMore">Single Item</string>
     <string name="refresh">Refresh</string>
 
